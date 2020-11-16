@@ -1,9 +1,8 @@
 import React from "react";
 import {Typography, makeStyles, Grid} from "@material-ui/core";
-import UploadButtons from "../../Components/UploadButton";
 import Button from "../../Components/Button/index"
-import ImgCard from "../../Components/ImgCard";
-import img1 from "../../assets/img1.jpg"
+import ListControls from "../../Components/ListControls"
+
 
 const useStyles = makeStyles({
     root: {
@@ -44,12 +43,24 @@ const useStyles = makeStyles({
 })
 
 
-
 export default function Home() {
     const classes = useStyles();
+
     /*const fileSelected = event => {
         console.log(event)
     }*/
+    function onChange(e) {
+        let files = e.target.files
+        console.log(files)
+        let reader = new FileReader()
+        reader.readAsDataURL(files[0])
+
+        reader.onload = (e) => {
+            console.log("img data ", e.target.result)
+        }
+
+    }
+
     return (
         <div className={classes.root}>
             <header style={{justifyContent: "center"}}>
@@ -82,7 +93,8 @@ export default function Home() {
                     </Grid>
                     <Grid container xs={12} alignItems="baseline">
                         <Grid xs={6} align="center">
-                            <UploadButtons/>
+                            {/*<UploadButtons onChange={(e) => onChange(e)}/>*/}
+                            <input type="file" name="file" onChange={(e) => onChange(e)}/>
                         </Grid>
                         <Grid xs={6} align="center">
                             <Button>Baixar</Button>
@@ -105,6 +117,10 @@ export default function Home() {
                           alignItems="center"
                           spacing={4}>
                         <Grid item>
+                            <ListControls/>
+                        </Grid>
+
+                        {/* <Grid item>
                             <ImgCard img={img1}/>
                         </Grid>
                         <Grid item>
@@ -112,7 +128,7 @@ export default function Home() {
                         </Grid>
                         <Grid item>
                             <ImgCard img={img1}/>
-                        </Grid>
+                        </Grid>*/}
                     </Grid>
                     <Grid
                         container
